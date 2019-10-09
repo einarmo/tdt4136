@@ -110,10 +110,15 @@ class MinimaxAgent(MultiAgentSearchAgent):
     """
       Your minimax agent (question 2)
     """
+    # Implementation of a level of the minimax agent.
+    # state is the state at this action
+    # index is the index of the agent currently acting. Pacman is 0, the ghosts are > 0
+    # cdepth is the current depth, where each level contains [index] layers.
     def minimax(self, state, index, cdepth):
+        # Increment the iteration
         if index == self.index:
             cdepth = cdepth + 1
-
+        # if we have looped back around to the acting agent and reached the specified max depth, terminate
         if cdepth == self.depth:
             return self.evaluationFunction(state)
 
@@ -124,23 +129,12 @@ class MinimaxAgent(MultiAgentSearchAgent):
         if index == 0:
             return max(scores)
         return min(scores)
-
+    # It seems like the program is only designed to play with Pacman, but this function is built to
+    # allow the ghosts to play as well
     def getAction(self, gameState):
         """
           Returns the minimax action from the current gameState using self.depth
           and self.evaluationFunction.
-
-          Here are some method calls that might be useful when implementing minimax.
-
-          gameState.getLegalActions(agentIndex):
-            Returns a list of legal actions for an agent
-            agentIndex=0 means Pacman, ghosts are >= 1
-
-          gameState.generateSuccessor(agentIndex, action):
-            Returns the successor game state after an agent takes an action
-
-          gameState.getNumAgents():
-            Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
         actions = gameState.getLegalActions(self.index)
@@ -158,6 +152,12 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
     """
       Your minimax agent with alpha-beta pruning (question 3)
     """
+    # Iteration of the alphabeta function
+    # state is the state before acting
+    # index is the current index of the acting agent
+    # cdepth is the current depth, where each level contains [index] layers.
+    # alpha is the best known path in the branch leading out to this node for the maximizer
+    # beta is the best known path in the branch leading out to this node for the minimizer
     def alphabeta(self, state, index, cdepth, alpha, beta):
         if index == self.index:
             cdepth = cdepth + 1
@@ -183,11 +183,12 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             beta = min(beta, value)
         return value
 
+    # This is not built to allow the agent to be the ghost, but it is fairly easy to expand it,
+    # just add a different case for the minimizers.
     def getAction(self, gameState):
         """
           Returns the minimax action using self.depth and self.evaluationFunction
         """
-        "*** YOUR CODE HERE ***"
         aindex = -1
         actions = gameState.getLegalActions(self.index)
         alpha = -float("inf")

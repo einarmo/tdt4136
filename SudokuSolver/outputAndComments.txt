@@ -1,0 +1,64 @@
+Solved with 42 calls to Backtrack and 12 failures.
+784|932|156
+619|485|327
+235|176|489
+---*---*---
+578|261|934
+341|897|562
+926|543|871
+---*---*---
+453|729|618
+862|314|795
+197|658|243
+
+Solved with 212 calls to Backtrack and 178 failures.
+875|936|142
+169|724|385
+243|851|679
+---*---*---
+452|697|831
+986|413|257
+731|582|964
+---*---*---
+517|369|428
+628|145|793
+394|278|516
+
+Solved with 905 calls to Backtrack and 851 failures.
+152|346|897
+437|189|652
+689|572|314
+---*---*---
+821|637|945
+543|891|726
+976|425|183
+---*---*---
+798|253|461
+365|914|278
+214|768|539
+
+Solved with 10892 calls to Backtrack and 10836 failures.
+431|867|925
+652|491|387
+897|532|164
+---*---*---
+384|976|512
+519|284|736
+276|315|849
+---*---*---
+943|728|651
+765|143|298
+128|659|473
+
+
+Notes:
+
+The difference between the failures and the calls to backtrack is the depth of the solution, meaning that it is the number of times backtrack is called on the branch that lead to the solution, most of these will be correct guesses by the Backtrack algorithm, the rest will result from Interference calls removing all but one option on a variable.
+
+The more difficult sudokus take much longer, as the number of potential paths increase exponentially with the number of open spots (the number of initial unassigned variables). As the "height" of the tree increases, each level adds a great number of potential branches, several of which likely will go quite deep before we have to backtrack.
+
+As for the code, there are two CSP implementations.
+
+CSP is the implementation from the python example, more or less.
+
+CSP2 changes the constraint dictionaries to a dictionary of dictionaries of functions, which is considerably more efficient (I got 30-40% improved performance). Apart from that they do the same.
