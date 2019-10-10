@@ -182,7 +182,11 @@ namespace SudokuSolver
                     illegal.Add(x);
                 }
             }
-            assignment[i] = assignment[i].Except(illegal);
+            if (illegal.Any())
+            {
+                assignment[i] = assignment[i].Except(illegal);
+            }
+
             return revised;
         }
     }
